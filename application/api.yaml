@@ -1,0 +1,24 @@
+routes:
+  - url: api/add_section
+    method: POST
+    handler: application.handlers.AddSection
+
+  - url: api/add_book
+    method: POST
+    handler: application.handlers.AddBook
+
+  - url: api/delete_section
+    method: POST
+    handler: application.handlers.DeleteSection
+
+  - url: api/delete_book
+    method: POST
+    handler: application.handlers.DeleteBook
+
+  - url: api/edit_book/<book_id>
+    method: POST
+    handler: application.handlers.EditBook
+
+  - url: api/edit_section/<section_id>
+    method: POST
+    handler: application.handlers.EditSection

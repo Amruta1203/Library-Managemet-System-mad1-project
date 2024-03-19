@@ -20,18 +20,5 @@ api.add_resource(EditBook, '/api/edit_book/<book_id>')
 api.add_resource(EditSection, '/api/edit_section/<section_id>')
 
 
-# def create_admin():
-#     user = User.query.filter_by(role='admin').first()
-#     if user:
-#         return
-#     admin = User(name='admin',email='admin@gmail.com',password='admin@123',role='admin',phone='1234567890',address='library')
-#     db.session.add(admin)
-#     db.session.commit()
-
-
-
-
-
 with app.app_context():
-    #create_admin()
     db.create_all()

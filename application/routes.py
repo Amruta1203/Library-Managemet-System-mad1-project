@@ -64,23 +64,8 @@ def admin_login():
             if session.get('user')['role'] == 'admin':
                 return redirect(url_for('index'))
                 
-            return redirect(url_for('user'))
+            return redirect(url_for('user_stats'))
     return render_template('admin_login.html')
-
-@app.route('/user')
-def user():
-    if session.get('user'):
-        return render_template('user_dash.html',user=session.get('user'))
-    return redirect(url_for('login'))
-
-# @app.route('/admin')
-# def admin():
-#     if not session.get('user'):
-#         return redirect(url_for('login'))
-#     if session.get('user')['role'] != 'admin':
-#         return redirect(url_for('login'))
-  
-#     return render_template('admin_dash.html',requests=requested_book.query.all())
 
 @app.route('/logout')
 def logout():
@@ -220,9 +205,6 @@ def edit_section(section_id):
     if session.get('user')['role'] != 'admin':
         return redirect(url_for('login'))
     if request.method == 'POST':
-        # section.name = request.form['name']
-        # section.description = request.form['description']
-        # db.session.commit()
         url = 'http://127.0.0.1:5000/api/edit_section/'+section_id
         data = {
             'section_id':section_id,
@@ -424,11 +406,9 @@ def download():
         return redirect(url_for('login'))
     if session.get('user')['role'] != 'customer':
         return redirect(url_for('login'))
-    #pdf_path = r'C:\Users\DAV\OneDrive\Desktop\mad1 project\static\Dummy(lib).pdf'
     if request.method == 'POST':
         book_id = request.form['book_id']
         price = request.form['price']
-        # return send_file(pdf_path, as_attachment=True)
         return render_template('download.html',price=price)
     return render_template('Books.html')
 
@@ -449,26 +429,18 @@ def index():
         return redirect(url_for('login'))
     if session.get('user')['role'] != 'admin':
         return redirect(url_for('login'))
-    # Example query to get data for the graph
     data = db.session.query(UserRecord, Book).join(Book, UserRecord.book_id == Book.book_id).all()
-
-    # Generate the graph
     graph_url = generate_graph(data)
 
     return render_template('admin_graph.html', graph_url=graph_url)
 
 def generate_graph(data):
-    # Count the occurrences of each book
     book_counts = Counter(book.name for entry, book in data)
-
-    # Extract book names and their corresponding counts
     books = list(book_counts.keys())
     counts = list(book_counts.values())
 
-    # Find the most issued book
     most_issued_book = max(book_counts, key=book_counts.get)
 
-    # Create the bar plot
     plt.figure(figsize=(10, 6))
     plt.bar(books, counts)
     plt.title('Most Issued Book')
@@ -476,18 +448,15 @@ def generate_graph(data):
     plt.ylabel('Number of Issues')
     plt.xticks(rotation=45, ha='right')
 
-    # Highlight the most issued book
     max_count = book_counts[most_issued_book]
     plt.bar(most_issued_book, max_count, color='red', label=f'Most Issued Book: {most_issued_book} ({max_count} times)')
 
     plt.legend()
 
-    # Save the plot to a BytesIO object
     img = BytesIO()
     plt.savefig(img, format='png')
     img.seek(0)
 
-    # Encode the plot image as base64
     graph_url = base64.b64encode(img.getvalue()).decode()
     plt.close()
 
@@ -508,11 +477,9 @@ def generate_graphs(book_info):
     due_dates_count = Counter(due_dates)
     sorted_due_dates = sorted(due_dates_count.keys())
     
-# Extract x and y values for plotting
     x_values = sorted_due_dates
     y_values = [due_dates_count[date] for date in sorted_due_dates]
 
-# Create the bar plot
     plt.figure(figsize=(10, 6))
     plt.bar(x_values, y_values, color='skyblue')
     plt.title('Number of Books Currently Borrowed and Their Due Dates')
@@ -521,24 +488,17 @@ def generate_graphs(book_info):
     plt.xticks(rotation=45)
     plt.tight_layout()
 
-    # Annotate the bars with the number of books
     for i, value in enumerate(y_values):
         plt.text(x_values[i], value + 0.1, str(value), ha='center')
 
-    # # Show the plot
-    # plt.show()
     img = BytesIO()
     plt.savefig(img, format='png')
     img.seek(0)
 
-    # Encode the plot image as base64
     graph_url = base64.b64encode(img.getvalue()).decode()
     plt.close()
 
     return f'data:image/png;base64,{graph_url}'
-
-
-
 
 @app.route('/return_book',methods=['GET','POST'])
 def return_book():
