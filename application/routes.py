@@ -49,7 +49,7 @@ def login():
         if user and user.password == password:
             session['user'] = user.to_dict()
             if session.get('user')['role'] == 'admin':
-                return redirect(url_for('admin'))
+                return redirect(url_for('index'))
             return redirect(url_for('user_stats'))
     return render_template('login.html')
 

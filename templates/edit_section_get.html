@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sections</title>
+    <title>Edit Sections</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,6 +11,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            background-image: url("{{ url_for('static', filename='home_pic.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         header {
@@ -91,6 +96,56 @@
             text-decoration: none;
             color: #fff;
         }
+        
+        .heading{
+            margin-top: 50px;
+            color: #050505;
+            font-weight: bold;
+            background-color: #ddd;
+            border-radius: 5px;
+            width: 400px;
+            margin-left: 400px;
+            margin-right: 400px;
+            text-align: center;
+
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 60%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+        li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-left: 20px;
+
+        }
+        .edit {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .edit:hover{
+            background-color: #008B8B;
+        }
+        
     </style>
 </head>
 <body>
@@ -126,12 +181,12 @@
         <div class="logout"><a href="/logout">Logout</a></div>
         <div class="logout"><a href="/admin">Dashboard</a></div>
     </nav>
-    <h1>Sections</h1>
+    <h1 class="heading">Sections</h1>
     <ul>
         {% for section in sections %}
             <li>
                 {{ section.name }} - {{ section.description }}
-                <a href="{{ url_for('edit_section', section_id=section.section_id) }}">Edit</a>
+                <a class="edit" href="{{ url_for('edit_section', section_id=section.section_id) }}">Edit</a>
             </li>
         {% endfor %}
     </ul>

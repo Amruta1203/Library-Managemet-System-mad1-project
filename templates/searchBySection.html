@@ -1,32 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Library Search</h1>
-    <form method="POST" action="{{ url_for('searchBySection') }}">
-        {{ form.csrf_token }}
-        <label for="section">Section:</label>
-        {{ form.section }}
-        <br>
-        {{ form.submit }}
-    </form>
 
-    {% if books %}
-        <h2>Search Results</h2>
-        <ul>
-            {% for book in books %}
-                <li>{{ book.name }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No results found.</p>
-    {% endif %}
-</body>
-</html> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,13 +81,7 @@
                 justify-content: space-evenly;
                 
             }
-            /* body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            } */
+           
     
             header {
                 background-color: #008B8B;
@@ -123,14 +89,6 @@
                 text-align: right;
             }
     
-            /* header button {
-                background-color: #007BFF;
-                color: #fff;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-            } */
     
             nav {
                 background-color: #333;
@@ -158,26 +116,7 @@
                 margin-top: 50px;
             }
     
-            /* h3 {
-                color: #555;
-                margin-top: 30px;
-            }
-     */
-            /* button {
-                display: block;
-                margin: 10px auto;
-                padding: 10px 20px;
-                background-color: #007BFF;
-                color: #fff;
-                border: none;
-                text-decoration: none;
-                cursor: pointer;
-                border-radius: 5px;
-            }
-    
-            button:hover {
-                background-color: #0056b3;
-            } */
+           
     
         a {
             text-decoration: none;

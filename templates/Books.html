@@ -1,34 +1,7 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
-</head>
-<body>
-    <table>
-        <tr>
-        <th>Book_name</th>
-        <th>Section_name</th>
-        <th>Author_name</th>
-        
-        </tr>
-        {% for book in books %}
-        <tr>
-            <td>{{book['name']}}</td>
-            <td>{{book['section_name']}}</td>
-            <td>{{book['author_name']}}</td>
-            <td><form action="/request_book" method="POST"><input type="text" name="book_id" value="{{book['book_id']}}" hidden><input type="submit" value="Request"></form></td>
-            <td><form action="/download" method="POST"><input type="text" name="book_id" value="{{book['book_id']}}" hidden><input type="text" name="price" value="{{book['price']}}" hidden><input type="submit" value="Download"></form></td>
-            
-        </tr>
-        {% endfor %}
-    </table>
-   
-</body>
-</html> -->
+
 <!DOCTYPE html>
 <html>
+    <title>Books</title>
 <head>
     <style>
         .card {

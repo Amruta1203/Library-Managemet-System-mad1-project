@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Book</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,6 +11,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            background-image: url("{{ url_for('static', filename='home_pic.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
         }
 
         header {
@@ -92,7 +98,8 @@
             background-color: #333;
             color: #fff;
         }
-        /* ul {
+
+        ul{
             list-style-type: none;
             padding: 0;
             margin-top: 20px;
@@ -102,7 +109,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            
+
         }
         li {
             background-color: #f9f9f9;
@@ -115,7 +122,32 @@
             align-items: center;
             margin-left: 20px;
 
-        } */
+        }
+        .edit {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .edit:hover{
+            background-color: #008B8B;
+        }
+        
+        .heading{
+            margin-top: 50px;
+            color: #050505;
+            font-weight: bold;
+            background-color: #ddd;
+            border-radius: 5px;
+            width: 400px;
+            margin-left: 400px;
+            margin-right: 400px;
+            text-align: center;
+
+        }
     </style>
 </head>
 <body>
@@ -151,12 +183,12 @@
         <div class="logout"><a href="/logout">Logout</a></div>
         <div class="logout"><a href="/admin">Dashboard</a></div>
     </nav>
-    <h1>Books</h1>
+    <h1 class="heading">Books</h1>
     <ul>
         {% for book in books %}
             <li>
                 {{ book.name }} - {{ book.price }}
-                <a href="{{ url_for('edit_book', book_id=book.book_id) }}">Edit</a>
+                <a class="edit" href="{{ url_for('edit_book', book_id=book.book_id) }}">Edit</a>
             </li>
         {% endfor %}
     </ul>

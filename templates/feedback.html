@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Feedback</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -62,6 +62,7 @@
         h3 {
             color: #555;
             margin-top: 30px;
+            text-align: center;
         }
 
         button {
@@ -155,7 +156,7 @@
     
     <form method="POST" action="/feedback/{{ request.args.get('user_id') }}/{{ request.args.get('book_id') }}">
         {{ form.csrf_token }}
-        <h1>Feedback</h1>
+        <h3 text-align="center">Feedback</h3>
         <label for="book_id">Book ID:</label>
         {{ form.book_id(value=book_id) }} 
         <br>

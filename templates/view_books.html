@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>View Books</title>
 </head>
 <style>
     body {
@@ -223,27 +223,6 @@
             <td>{{book['keywords']}}</td>
         </tr>
         {% endfor %}
-    </table>
-    <!-- <script>
-        const apiData = {books,tojson,safe};
-        const tableBody = document.querySelector('#myTable');
-
-        apiData.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${row['book_id']}</td>
-                            <td>${row['name']}</td>
-                            <td>${row['section_name']}</td>
-                            <td>${row['author_name']}</td>
-                            <td>${row['publisher_name']}</td>
-                            <td>${row['description']}</td>
-                            <td>${row['date_created']}</td>
-                            <td>${row['price']}</td>
-                            <td>${row['keywords']}</td>`;
-            tableBody.appendChild(tr);
-        })
-
-    </script> -->
-   
-    
+    </table> 
 </body>
 </html>
