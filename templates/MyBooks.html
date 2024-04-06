@@ -138,8 +138,11 @@
             <td>{{book['name']}}</td>
             <td>{{record['issue_date']}}</td>
             <td>{{record['return_date']}}</td>
-            <td><button><a href="{{url_for('feedback',user_id=record['user_id'],book_id=record['book_id'])}}">Feedback</button></td>
-            
+            {% if record['book_id'] not in f_id %}
+                <td><button><a href="{{url_for('feedback',user_id=record['user_id'],book_id=record['book_id'])}}">Feedback</button></td>
+            {% else %}
+                <td>Rated</td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

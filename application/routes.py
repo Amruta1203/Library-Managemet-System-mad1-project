@@ -49,7 +49,7 @@ def login():
         if user and user.password == password:
             session['user'] = user.to_dict()
             if session.get('user')['role'] == 'admin':
-                return redirect(url_for('index'))
+                return redirect(url_for('admin'))
             return redirect(url_for('user_stats'))
     return render_template('login.html')
 
@@ -62,7 +62,7 @@ def admin_login():
         if user and user.password == password:
             session['user'] = user.to_dict()
             if session.get('user')['role'] == 'admin':
-                return redirect(url_for('index'))
+                return redirect(url_for('admin'))
                 
             return redirect(url_for('user_stats'))
     return render_template('admin_login.html')
@@ -330,8 +330,9 @@ def MyBooks():
         return redirect(url_for('login'))
     if session.get('user')['role'] != 'customer':
         return redirect(url_for('login'))
+    book_ids = [feedback.book_id for feedback in Feedback.query.filter_by(user_id=user_id).all()]
     Mybook_info = db.session.query(UserRecord,Book).join(Book,UserRecord.book_id==Book.book_id).filter(UserRecord.user_id==user_id).all()
-    return render_template('MyBooks.html',records=Mybook_info)
+    return render_template('MyBooks.html',records=Mybook_info,f_id=book_ids)
 
 @app.route('/view_section_user',methods=['GET','POST'])
 def view_section_user():
@@ -388,9 +389,9 @@ def feedback(user_id,book_id):
     if session.get('user')['role'] != 'customer':
         return redirect(url_for('login'))
     form=FeedbackForm()
-    book_name = Book.query.filter_by(book_id=book_id).first().name
+    book_name = Book.query.filter_by(book_id=book_id).first()
     if form.validate_on_submit():
-        user_id = form.user_id.data
+        user_id = session.get('user')['user_id']
         book_id = form.book_id.data
         print("form validated")
         feedback = form.feedback.data
@@ -398,7 +399,7 @@ def feedback(user_id,book_id):
         db.session.add(feedback)
         db.session.commit()
         return redirect(url_for('MyBooks'))
-    return render_template('feedback.html',form=form,user_id=user_id,book_id=book_id,book_name=book_name)
+    return render_template('feedback.html',form=form,user_id=user_id,book_id=book_id,book_name=book_name.name)
     
 @app.route('/download',methods=['GET','POST'])
 def download():
@@ -424,7 +425,7 @@ def get_pdf():
         return send_file(pdf_path, as_attachment=True)
     
 @app.route('/admin',methods=['GET','POST'])
-def index():
+def admin():
     if not session.get('user'):
         return redirect(url_for('login'))
     if session.get('user')['role'] != 'admin':
